@@ -3,3 +3,9 @@
     "eShopSolutionDb": "Server=.;Database=eShopSolution;Trusted_Connection=True;"
   }
 }
+
+//{
+//  "ConnectionStrings": {
+//    "DbTest2": "Server=.;Database=DbTest2;Trusted_Connection=True;"
+//  }
+//}
