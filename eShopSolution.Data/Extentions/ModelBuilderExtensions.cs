@@ -1,4 +1,5 @@
 ﻿using eShopSolution.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -43,8 +44,6 @@ namespace eShopSolution.Data.Extentions
                 new CategoryTranslation() { Id = 4, CategoryId = 2, Name = "Women Shirt", LanguageId = "en-US", SeoAlias = "Women-shirt", SeoDescription = "The shirt product for women", SeoTitle = "The shirt product for women" }
                  );
 
-
-
             modelBuilder.Entity<ProductTranslation>().HasData(
                 new ProductTranslation
                 {
@@ -73,6 +72,37 @@ namespace eShopSolution.Data.Extentions
                 );
             modelBuilder.Entity<ProductInCategory>().HasData(new ProductInCategory { ProductId = 1, CategoryId = 1 });
 
+            var roleId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
+            var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
+            modelBuilder.Entity<AppRole>().HasData(new AppRole
+            {
+                Id = roleId,
+                Name = "admin",
+                NormalizedName = "admin",
+                Description = "Administrator role"
+            });
+
+            var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<AppUser>().HasData(new AppUser
+            {
+                Id = adminId,
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "nganld@gmail.com",
+                NormalizedEmail = "nganld@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "123456"),
+                SecurityStamp = string.Empty,
+                FirstName = "Ngan",
+                LastName = "Le",
+                Dob = new DateTime(2021, 03, 17)
+            });
+
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+            {
+                RoleId = roleId,
+                UserId = adminId
+            });
         }
     }
 }
