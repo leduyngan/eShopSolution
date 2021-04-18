@@ -10,9 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.Data", "eShopSolution.Data\eShopSolution.Data.csproj", "{F7468796-4262-4016-BF8D-9AC949C8705D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Data", "eShopSolution.Data\eShopSolution.Data.csproj", "{F7468796-4262-4016-BF8D-9AC949C8705D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.Application", "eShopSolution.Application\eShopSolution.Application.csproj", "{78CB7729-A5C3-496F-909D-FE083464354F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Application", "eShopSolution.Application\eShopSolution.Application.csproj", "{78CB7729-A5C3-496F-909D-FE083464354F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Utilityes", "eShopSolution.Utilityes\eShopSolution.Utilityes.csproj", "{9349BDA2-FF92-418A-94F0-3825549621A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.ViewModels", "eShopSolution.ViewModels\eShopSolution.ViewModels.csproj", "{DCDEABAC-39F3-4C12-9907-621101DF7FFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{78CB7729-A5C3-496F-909D-FE083464354F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78CB7729-A5C3-496F-909D-FE083464354F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78CB7729-A5C3-496F-909D-FE083464354F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9349BDA2-FF92-418A-94F0-3825549621A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9349BDA2-FF92-418A-94F0-3825549621A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9349BDA2-FF92-418A-94F0-3825549621A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9349BDA2-FF92-418A-94F0-3825549621A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCDEABAC-39F3-4C12-9907-621101DF7FFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCDEABAC-39F3-4C12-9907-621101DF7FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCDEABAC-39F3-4C12-9907-621101DF7FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCDEABAC-39F3-4C12-9907-621101DF7FFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
