@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using eShopSolution.ViewModels.Catalog.Products.Manage;
 using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.Catalog.Products;
 using Microsoft.AspNetCore.Http;
@@ -92,7 +91,7 @@ namespace eShopSolution.Application.Catalog.Products
 
 
 
-        public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+        public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
         {
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
@@ -188,7 +187,7 @@ namespace eShopSolution.Application.Catalog.Products
             return fileName;
         }
 
-        public Task<int> AddImages(int productId, List<IFormFile> files)
+        public  Task<int> AddImages(int productId, List<IFormFile> files)
         {
             throw new NotImplementedException();
         }
@@ -207,5 +206,7 @@ namespace eShopSolution.Application.Catalog.Products
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
