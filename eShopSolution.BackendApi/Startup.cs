@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eShopSolution.Application.Catalog.Products;
+using eShopSolution.Application.Common;
 using eShopSolution.Data.EF;
 using eShopSolution.Utilityes.Constants;
 using Microsoft.AspNetCore.Builder;
@@ -30,7 +31,9 @@ namespace eShopSolution.BackendApi
         {
             services.AddDbContext<EShopDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(SystemConstans.MainConnectionString)));
+            services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IPublicProductService, PublicProductService>();
+            services.AddTransient<IManageProductServie, ManageProductService>();
             services.AddControllersWithViews();
 
             services.AddSwaggerGen(c =>
@@ -60,6 +63,7 @@ namespace eShopSolution.BackendApi
 
             app.UseSwaggerUI(c =>
             {
+               
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
             });
 
