@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:55473",
-      "sslPort": 44301
+      "applicationUrl": "http://localhost:53836",
+      "sslPort": 44380
     }
   },
   "profiles": {
@@ -15,13 +15,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "eShopSolution.BackendApi": {
+    "eShopSolution.AdminApp": {
       "commandName": "Project",
-      "launchBrowser": false,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:5001",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5002",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        //"ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
       }
     }
   }
