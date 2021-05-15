@@ -45,8 +45,7 @@ namespace eShopSolution.BackendApi
                     .AddDefaultTokenProviders();
 
             services.AddTransient<IStorageService, FileStorageService>();
-            services.AddTransient<IPublicProductService, PublicProductService>();
-            services.AddTransient<IManageProductServie, ManageProductService>();
+            services.AddTransient<IProductServie, ProductService>();
 
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
