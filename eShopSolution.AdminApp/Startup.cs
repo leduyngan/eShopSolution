@@ -17,13 +17,12 @@ namespace eShopSolution.AdminApp
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -32,7 +31,7 @@ namespace eShopSolution.AdminApp
                     .AddCookie(options =>
                     {
                         //options.LoginPath = "/Home/Index/";
-                        options.LoginPath = "/User/Login/";
+                        options.LoginPath = "/Login/Index/";
                         options.AccessDeniedPath = "/Account/Forbidden";
                     });
             services.AddSession(options => {
