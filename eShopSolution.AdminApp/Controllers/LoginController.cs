@@ -37,11 +37,17 @@ namespace eShopSolution.AdminApp.Controllers
 
         {
             if (!ModelState.IsValid)
-                return View(ModelState);
+            {
+                ModelState.AddModelError("", "Tài Khoản hoặc mật khẩu không đúng!");
+                    return View();
+            }    
+                
             var restul = await _userApiClient.Authenticate(request);
             if (!restul.IsSuccessed)
             {
-                return BadRequest(restul.Message);
+                ModelState.AddModelError("", restul.Message);
+                return View();
+                //return BadRequest(restul.Message);
             }
 
             var userPrincipal = this.ValidateToken(restul.ResultObj);

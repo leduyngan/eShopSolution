@@ -36,7 +36,7 @@ namespace eShopSolution.Application.System.Users
         public async Task<ApiResult<string>> Authencate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) return null;
+            if (user == null) return new ApiErrorResult<string>("Tài Khoản Không Tồn Tại");
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
             {
@@ -66,7 +66,7 @@ namespace eShopSolution.Application.System.Users
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(request.KeyWord))
             {
-                query =  query.Where(x => x.UserName.Contains(request.KeyWord) || x.PhoneNumber.Contains(request.KeyWord));
+                query =  query.Where(x => x.UserName.Contains(request.KeyWord) || x.PhoneNumber.Contains(request.KeyWord)||x.FirstName.Contains(request.KeyWord));
             }
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
@@ -158,6 +158,21 @@ namespace eShopSolution.Application.System.Users
             {
                 return new ApiErrorResult<bool>("Cập Nhật Không Thành Công");
             }
+        }
+
+        public async Task<ApiResult<bool>> Delete(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null) 
+            {
+                return new ApiErrorResult<bool>("User Không Tồn Tại");
+            }
+          var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return new ApiSuccessResult<bool>();
+            }
+            return new ApiErrorResult<bool>("Xóa Không Thành Công");
         }
     }
 }
