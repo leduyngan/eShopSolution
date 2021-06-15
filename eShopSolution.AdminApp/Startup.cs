@@ -36,7 +36,7 @@ namespace eShopSolution.AdminApp
                         options.AccessDeniedPath = "/Account/Forbidden";
                     });
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(100);//You can set Time   
+                options.IdleTimeout = TimeSpan.FromMinutes(1000);//You can set Time   
             });
             services.AddControllersWithViews()
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
@@ -44,6 +44,7 @@ namespace eShopSolution.AdminApp
             services.AddTransient<IUserApiClient, UserApiClient>(); 
             services.AddRazorPages()
                     .AddRazorRuntimeCompilation();
+            services.AddTransient<IRoleApiClient, RoleApiClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
