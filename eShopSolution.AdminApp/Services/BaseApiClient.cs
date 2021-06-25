@@ -15,13 +15,14 @@ namespace eShopSolution.AdminApp.Services
 {
     public class BaseApiClient
     {
+
         public readonly IHttpClientFactory _httpClientFactory;
         public readonly IConfiguration _configuration;
         public readonly IHttpContextAccessor _httpContextAccessor;
         protected BaseApiClient(IHttpClientFactory httpClientFactory, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
-            _configuration = configuration;
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
         }
         protected async Task<TResponse> GetAsync<TResponse>(string url)

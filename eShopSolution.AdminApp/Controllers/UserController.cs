@@ -33,6 +33,7 @@ namespace eShopSolution.AdminApp.Controllers
             };
             
             var data = await _userApiClient.GetUsersPagings(request);
+            
             ViewBag.Keyword = keyword;
             if(TempData["result"] != null)
             {
