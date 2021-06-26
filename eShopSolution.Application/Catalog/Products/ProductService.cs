@@ -33,7 +33,7 @@ namespace eShopSolution.Application.Catalog.Products
             await _context.SaveChangesAsync();
         }   
 
-        public async Task<int> Create(ProductCreateRequest request)
+        public async Task<ApiResult<bool>> Create(ProductCreateRequest request)
         {
             var product = new Product()
             {
@@ -72,8 +72,16 @@ namespace eShopSolution.Application.Catalog.Products
                 };
             }
             _context.Products.Add(product);
-           await _context.SaveChangesAsync();
-            return product.Id;
+            try
+            {
+                await _context.SaveChangesAsync();
+                return new ApiSuccessResult<bool>();
+            }
+           catch(SystemException e)
+            {
+                return new ApiErrorResult<bool>("Thêm Mới Không Thành Công!" + e);
+            }
+            
         }
 
         public async Task<int> Delete(int productId)
@@ -95,18 +103,18 @@ namespace eShopSolution.Application.Catalog.Products
         {
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
-                        join c in _context.Categories on pic.CategoryId equals c.Id
+                        //join pic in _context.ProductInCategories on p.Id equals pic.ProductId
+                        //join c in _context.Categories on pic.CategoryId equals c.Id
                         where pt.LanguageId == request.LanguageId
-                        select new { p, pt, pic };
+                        select new { p, pt };
             // filter
             if (!string.IsNullOrEmpty(request.Keyword))
                 query = query.Where(x => x.pt.Name.Contains(request.Keyword));
 
-            if(request.CategoryIds != null && request.CategoryIds.Count >0)
-            {
-                query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryId));
-            }
+            //if(request.CategoryIds != null && request.CategoryIds.Count >0)
+            //{
+            //    query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryId));
+            //}
             // paging
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)

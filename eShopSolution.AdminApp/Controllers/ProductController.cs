@@ -7,6 +7,7 @@ using eShopSolution.Utilityes.Constants;
 using eShopSolution.ViewModels.Catalog.Products;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 
 namespace eShopSolution.AdminApp.Controllers
@@ -41,6 +42,29 @@ namespace eShopSolution.AdminApp.Controllers
                 ViewBag.SuccessMsg = TempData["result"];
             }
             return View(data);
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] ProductCreateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+            var result = await _productApiClient.CreateProduct(request);
+            if (result.IsSuccessed)
+            {
+                TempData["result"] = "Thêm mới sản phẩm thành công";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+            return View(request);
         }
     }
 }

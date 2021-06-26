@@ -10,6 +10,6 @@ namespace eShopSolution.AdminApp.Services
    public interface IProductApiClient
     {
         Task<PagedResult<ProductVm>> GetPagings(GetManageProductPagingRequest request);
-
+        Task<ApiResult<bool>> CreateProduct(ProductCreateRequest request);
     }
 }
