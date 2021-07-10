@@ -46,8 +46,8 @@ namespace eShopSolution.AdminApp
                     .AddRazorRuntimeCompilation();
             services.AddTransient<IRoleApiClient, RoleApiClient>();
             services.AddTransient<ILanguageApiClient, LanguageApiClient>();
-            //services.AddTransient<IProductApiClient, ProductApiClient>();
             services.AddTransient<IProductApiClient, ProductApiClient>();
+            services.AddTransient<ICategoryApiClient, CategoryApiClient>();
         }
         
 

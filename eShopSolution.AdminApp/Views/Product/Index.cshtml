@@ -32,8 +32,13 @@
                 <div class="col-md-6 col-xs-12">
                     <form asp-action="Index" method="get">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <select name="categoryId" onchange="this.form.submit()" asp-items="@ViewBag.categories" class="form-control">
+                                    <option>--Chọn danh mục--</option>
+                                </select>
                             </div>
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary">Tìm</button>
@@ -99,6 +104,7 @@
                                     @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
                                     @Html.ActionLink("Xem", "Details", new { id = item.Id }) |
                                     @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
+                                    @Html.ActionLink("Gán danh mục", "CategoryAssign", new { id = item.Id }) |
                                 </td>
                             </tr>
                         }
