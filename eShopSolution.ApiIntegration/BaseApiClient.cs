@@ -11,7 +11,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.AdminApp.Services
+namespace eShopSolution.ApiIntegration
 {
     public class BaseApiClient
     {
@@ -40,7 +40,7 @@ namespace eShopSolution.AdminApp.Services
             }
             return JsonConvert.DeserializeObject<TResponse>(body);
         }
-        protected async Task<TResponse> PostAsync<TResponse>(string url, object request )
+        protected async Task<TResponse> PostAsync<TResponse>(string url, object request)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString(SystemConstans.Appsetings.Token);
             var client = _httpClientFactory.CreateClient();
