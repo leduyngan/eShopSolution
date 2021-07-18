@@ -68,5 +68,15 @@ namespace eShopSolution.ApiIntegration
         {
             return await GetAsync<ProductVm>($"/api/products/{id}/{languageId}");
         }
+
+        public async Task<List<ProductVm>> GetFeaturedProducts(string languageId, int take)
+        {
+            return await GetAsync<List<ProductVm>>($"/api/products/featured/{languageId}/{take}");
+        }
+
+        public async Task<List<ProductVm>> GetLatestProducts(string languageId, int take)
+        {
+            return await GetAsync<List<ProductVm>>($"/api/products/latest/{languageId}/{take}");
+        }
     }
 }
