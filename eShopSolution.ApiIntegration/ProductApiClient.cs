@@ -50,6 +50,31 @@ namespace eShopSolution.ApiIntegration
 
 
         }
+        public async Task<ApiResult<bool>> UpdateProduct(ProductUpdateRequest request)
+        {
+            var languageId = _httpContextAccessor.HttpContext.Session.GetString(SystemConstans.Appsetings.DefaultLanguageId);
+            var requestContent = new MultipartFormDataContent();
+            if (request.ThumbnailImage != null)
+            {
+                byte[] data;
+                using (var br = new BinaryReader(request.ThumbnailImage.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)request.ThumbnailImage.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new ByteArrayContent(data);
+                requestContent.Add(bytes, "ThumbnailImage", request.ThumbnailImage.FileName);
+            }
+            requestContent.Add(new StringContent(request.Name.ToString()), "name");
+            requestContent.Add(new StringContent(request.Description.ToString()), "description");
+            requestContent.Add(new StringContent(request.Details.ToString()), "details");
+            requestContent.Add(new StringContent(request.SeoDescription.ToString()), "seoDescription");
+            requestContent.Add(new StringContent(request.SeoTitle.ToString()), "seoTitle");
+            requestContent.Add(new StringContent(request.SeoAlias.ToString()), "seoAlias");
+            requestContent.Add(new StringContent(languageId.ToString()), "languageId");
+            return await PutAsyncMultipart<ApiResult<bool>>($"/api/products/" + request.Id, requestContent);
+
+
+        }
 
         public async Task<PagedResult<ProductVm>> GetPagings(GetManageProductPagingRequest request)
         {

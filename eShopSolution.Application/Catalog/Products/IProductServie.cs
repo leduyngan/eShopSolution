@@ -12,7 +12,7 @@ namespace eShopSolution.Application.Catalog.Products
     public interface IProductServie
     {
         Task<ApiResult<bool>> Create(ProductCreateRequest request);
-        Task<int> Update(ProductUpdateRequest request);
+        Task<ApiResult<bool>> Update(ProductUpdateRequest request);
         Task<bool> UpdatePrice(int productId, decimal newPrice);
         Task<bool> UpdateStock(int productId, int addQuantity);
         Task AddViewcount(int productId);

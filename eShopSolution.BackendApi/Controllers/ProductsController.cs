@@ -38,7 +38,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPost]
-        //[Consumes("multipart/form-data")]
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create([FromForm] ProductCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -59,19 +59,21 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromForm] ProductUpdateRequest request)
+        [HttpPut("{productId}")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Update([FromRoute] int productId, [FromForm] ProductUpdateRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var affetedResult = await _productService.Update(request);
-            if (affetedResult == 0)
+            request.Id = productId;
+            var result = await _productService.Update(request);
+            if (!result.IsSuccessed)
             {
-                return BadRequest();
+                return BadRequest(result);
             }
-            return Ok();
+            return Ok(result);
         }
         [HttpPatch("{productId}/{newPrice}")]
         public async Task<IActionResult> UpdatePrice(int productId, decimal newPrice)

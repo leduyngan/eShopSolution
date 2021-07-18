@@ -89,6 +89,21 @@ namespace eShopSolution.ApiIntegration
             }
             return JsonConvert.DeserializeObject<TResponse>(body);
         }
+        protected async Task<TResponse> PutAsyncMultipart<TResponse>(string url, MultipartFormDataContent request)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString(SystemConstans.Appsetings.Token);
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration[SystemConstans.Appsetings.BaseAddress]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+            var response = await client.PutAsync(url, request);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                TResponse myDeserializedObjList = (TResponse)Newtonsoft.Json.JsonConvert.DeserializeObject(body, typeof(TResponse));
+                return myDeserializedObjList;
+            }
+            return JsonConvert.DeserializeObject<TResponse>(body);
+        }
         protected async Task<TResponse> DeleteAsync<TResponse>(string url)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString(SystemConstans.Appsetings.Token);
