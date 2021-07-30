@@ -37,8 +37,8 @@ namespace eShopSolution.BackendApi
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<EShopDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString(SystemConstans.MainConnectionString)));
+            services.AddDbContext<EShopDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(SystemConstans.MainConnectionString)));
+
             services.AddIdentity<AppUser, AppRole>()
                     .AddEntityFrameworkStores<EShopDbContext>()
                     .AddDefaultTokenProviders();

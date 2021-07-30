@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,12 @@ namespace eShopSolution.Application.Common
             var filePath = Path.Combine(_userContentFolder, fileName);
             using var output = new FileStream(filePath, FileMode.Create);
             await mediaBinaryStream.CopyToAsync(output);
+        }
+        public async Task SaveFileAsync1(IFormFile file, string fileName)
+        {
+            var filePath = Path.Combine(_userContentFolder, fileName);
+            using var output = new FileStream(filePath, FileMode.Create);
+            await file.CopyToAsync(output);
         }
         public async Task DeleteFileAsync(string fileName)
         {

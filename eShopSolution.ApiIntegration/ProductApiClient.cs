@@ -29,23 +29,25 @@ namespace eShopSolution.ApiIntegration
             if (request.ThumbnailImage != null)
             {
                 byte[] data;
-                using (var br = new BinaryReader(request.ThumbnailImage.OpenReadStream()))
+               using (var br = new BinaryReader(request.ThumbnailImage.OpenReadStream()))
                 {
                     data = br.ReadBytes((int)request.ThumbnailImage.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
                 requestContent.Add(bytes, "ThumbnailImage", request.ThumbnailImage.FileName);
             }
+            var aaa = new StringContent(request.Price.ToString());
             requestContent.Add(new StringContent(request.Price.ToString()), "price");
             requestContent.Add(new StringContent(request.OriginalPrice.ToString()), "originalPrice");
             requestContent.Add(new StringContent(request.Stock.ToString()), "stock");
-            requestContent.Add(new StringContent(request.Name.ToString()), "name");
-            requestContent.Add(new StringContent(request.Description.ToString()), "description");
-            requestContent.Add(new StringContent(request.Details.ToString()), "details");
-            requestContent.Add(new StringContent(request.SeoDescription.ToString()), "seoDescription");
-            requestContent.Add(new StringContent(request.SeoTitle.ToString()), "seoTitle");
-            requestContent.Add(new StringContent(request.SeoAlias.ToString()), "seoAlias");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Name) ? "N/A" : request.Name.ToString()), "name");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Description) ? "N/A" : request.Description.ToString()), "description");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Details) ? "N/A" : request.Details.ToString()), "details");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.SeoDescription) ? "N/A" : request.SeoDescription.ToString()), "seoDescription");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.SeoTitle) ? "N/A" : request.SeoTitle.ToString()), "seoTitle");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.SeoAlias) ? "N/A" : request.SeoAlias.ToString()), "seoAlias");
             requestContent.Add(new StringContent(languageId.ToString()), "languageId");
+            var fg = requestContent;
             return await PostAsyncMultipart<ApiResult<bool>>($"/api/products/", requestContent);
 
 
@@ -64,12 +66,12 @@ namespace eShopSolution.ApiIntegration
                 ByteArrayContent bytes = new ByteArrayContent(data);
                 requestContent.Add(bytes, "ThumbnailImage", request.ThumbnailImage.FileName);
             }
-            requestContent.Add(new StringContent(request.Name.ToString()), "name");
-            requestContent.Add(new StringContent(request.Description.ToString()), "description");
-            requestContent.Add(new StringContent(request.Details.ToString()), "details");
-            requestContent.Add(new StringContent(request.SeoDescription.ToString()), "seoDescription");
-            requestContent.Add(new StringContent(request.SeoTitle.ToString()), "seoTitle");
-            requestContent.Add(new StringContent(request.SeoAlias.ToString()), "seoAlias");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Name) ? "N/A" : request.Name.ToString()), "name");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Description) ? "N/A" : request.Description.ToString()), "description");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Details) ? "N/A" : request.Details.ToString()), "details");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.SeoDescription) ? "N/A" : request.SeoDescription.ToString()), "seoDescription");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.SeoTitle) ? "N/A" : request.SeoTitle.ToString()), "seoTitle");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.SeoAlias) ? "N/A" : request.SeoAlias.ToString()), "seoAlias");
             requestContent.Add(new StringContent(languageId.ToString()), "languageId");
             return await PutAsyncMultipart<ApiResult<bool>>($"/api/products/" + request.Id, requestContent);
 
@@ -102,6 +104,11 @@ namespace eShopSolution.ApiIntegration
         public async Task<List<ProductVm>> GetLatestProducts(string languageId, int take)
         {
             return await GetAsync<List<ProductVm>>($"/api/products/latest/{languageId}/{take}");
+        }
+
+        public async Task<bool> DeletetProducts(int id)
+        {
+            return await Delete($"/api/products/" + id);
         }
     }
 }

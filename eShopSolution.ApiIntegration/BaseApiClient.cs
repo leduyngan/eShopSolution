@@ -120,5 +120,20 @@ namespace eShopSolution.ApiIntegration
             return JsonConvert.DeserializeObject<TResponse>(body);
         }
 
+        protected async Task<bool> Delete(string url)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString(SystemConstans.Appsetings.Token);
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration[SystemConstans.Appsetings.BaseAddress]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+            var response = await client.DeleteAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

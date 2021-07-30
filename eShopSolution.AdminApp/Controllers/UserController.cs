@@ -22,7 +22,7 @@ namespace eShopSolution.AdminApp.Controllers
             _configuration = configuration;
             _roleApiClient = roleApiClient;
         }
-        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 3)
 
         {
             var request = new GetUserPagingRequest()
