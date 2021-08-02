@@ -4,7 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using eShopSolution.ApiIntegration;
+using eShopSolution.ViewModels.System.Users;
 using eShopSolution.WebApp.LocalizationResources;
+using FluentValidation.AspNetCore;
 using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +40,8 @@ namespace eShopSolution.WebApp
                         options.LoginPath = "/Account/Login/";
                         options.AccessDeniedPath = "/Account/Forbidden";
                     });
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromMinutes(1000);//You can set Time   
             });
             services.AddHttpClient();
@@ -77,6 +80,8 @@ namespace eShopSolution.WebApp
                          o.DefaultRequestCulture = new RequestCulture("vi");
                      };
                  });
+            services.AddControllersWithViews()
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ISlideApiClient, SlideApiClient>();
             services.AddTransient<IProductApiClient, ProductApiClient>();
@@ -109,10 +114,10 @@ namespace eShopSolution.WebApp
             {
                 endpoints.MapControllerRoute(
                     name: "Product Category En",
-                    pattern: "{culture}/categories/{id?}", new 
-                    { 
-                    controller = "Product",
-                    action = "Category"
+                    pattern: "{culture}/categories/{id?}", new
+                    {
+                        controller = "Product",
+                        action = "Category"
                     });
                 endpoints.MapControllerRoute(
                     name: "Product Category Vn",
